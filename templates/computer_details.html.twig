@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+{% endblock %}
+{% block body %}
+    {% include 'header.html.twig' %}
+    <div class="computer-details">
+        <h1>
+            {{ computer.hostname is not null and '.' in computer.hostname ? computer.hostname|split('.')|first : computer.hostname }}
+            <a href="{{ path('export_computer', {'hostname': computer.hostname}) }}">
+                <button type="button" class="export-button">Export</button>
+            </a>
+        </h1>
+        <h2>Informations</h2>
+        <table class="details-table">
+            <tr>
+                <td class="title">Numéro:</td>
+                <td>{{ computer.hostname is not null and '.' in computer.hostname ? computer.hostname|split('.')|first : computer.hostname }}</td>
+            </tr>
+            <tr>
+                <td class="title">Tag:</td>
+                <td>{{ tag|upper|default('NULL') }}</td>
+            </tr>
+            <tr>
+                <td class="Alert">Nombre d'alertes émis</td>
+                <td>{{ alertCount }}</td>
+            </tr>
+            <tr>
+                <td Class="Country-authorized">Pays autoriser</td>
+                <td>
+                    {% if authorizedCountries is empty %}
+                        Aucun
+                    {% else %}
+                        {% for country in authorizedCountries %}
+                            {{ country.getAuthorizedCountry().getCountryName() }}
+                            {% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+        <h2>Activité</h2>
+
+
+        <table class="activity-table">
+            <tr>
+                <th>Addresse IP</th>
+                <th>Localisation</th>
+                <th>Proxy</th>
+                <th>Date de collecte</th>
+
+            </tr>
+            {% for ipAddress in ipAddresses %}
+                <tr>
+                    <td>{{ ipAddress.ipAddress }}</td>
+                    <td>{{ ipAddress.country }}</td>
+                    <td>{{ ipAddress.isProxy ? 'Oui' : 'Non' }}</td>
+                    <td>{{ ipAddress.collectionDateTime|date('H:i:s') ~ ' - ' ~ ipAddress.collectionDateTime|date('d-m-Y') }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Aucune donnée récolter</td>
+                </tr>
+            {% endfor %}
+        </table>
+        {{ knp_pagination_render(ipAddresses) }}
+    </div>
+    {% include 'footer.html.twig' %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/computer_details.css') }}">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('rows').addEventListener('change', function() {
+                document.getElementById('rowsForm').submit();
+            });
+        });
+    </script>
+{% endblock %}

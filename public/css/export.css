@@ -1,0 +1,73 @@
+/* public/css/export.css */
+
+#export-page {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+#export-page h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+#export-page .form-group {
+    margin-bottom: 25px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#export-page .form-group label {
+    font-weight: bold;
+}
+
+#export-page .form-check-label {
+    font-weight: normal;
+}
+
+#export-page .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 10px 20px;
+    font-size: 16px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+#export-page .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.text-danger {
+    color: #dc3545;
+}
+
+.select2-container {
+    width: 100% !important;
+}
+
+.form-control[type="date"] {
+    appearance: none;
+}
+
+.form-check-input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.label-disabled {
+    color: #505050;
+}
+
+@media screen and (max-width: 576px) {
+    #export-page .form-group {
+        margin-bottom: 15px;
+    }
+}
+
+body, #export-page {
+    overflow-x: hidden;
+}

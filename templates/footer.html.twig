@@ -1,0 +1,26 @@
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
+{% endblock %}
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-section links">
+            <h2>Liens Rapides</h2>
+            <ul>
+                <li><a href="{{ path('home') }}">Accueil</a></li>
+                <li><a href="{{ path('activity') }}">Activité</a></li>
+                <li><a href="{{ path('export') }}">Exporter</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section contact">
+            <h2>Contactez-nous</h2>
+            <p>Email: support@infoneo.fr</p>
+            <p>Téléphone : +33 01 21 22 72</p>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; Infoneo | LokIp</p>
+    </div>
+</footer>

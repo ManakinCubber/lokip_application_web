@@ -1,0 +1,9 @@
+hwi_oauth:
+  resource_owners:
+    google:
+      type:                google
+      client_id:           '905937609746-qtah852d3e0uh1spdeknf1ctmbl25qj0.apps.googleusercontent.com'
+      client_secret:       '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'
+      scope:               "email profile"
+      access_type:         "offline"
+      approval_prompt:     "force"

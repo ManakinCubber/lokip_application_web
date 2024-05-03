@@ -1,0 +1,41 @@
+body {
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    margin-top: 100px;
+    box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: #ff3c00;
+    border-color: #ff3c00;
+}
+
+.card-header {
+    background-color: #000000;
+    color: white;
+}
+
+.card-header img {
+    width: 100px;
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.card-body p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    line-height: 1.5;
+}

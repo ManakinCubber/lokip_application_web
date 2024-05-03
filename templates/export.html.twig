@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/export.css') }}">
+    <link rel="stylesheet" href="{{ asset('node_modules/flatpickr/dist/flatpickr.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include 'header.html.twig' %}
+
+    <main class="container" id="export-page">
+        <h2 class="my-4">Filtre d'export</h2>
+
+        <form method="get" action="{{ path('export_data') }}" class="mb-4">
+            <section class="form-group">
+                <label for="NumeroExport" aria-label="Numéro">Numéro :</label>
+                <input type="checkbox" class="form-check-input" id="noHostnameLimite">
+                <label class="form-check-label" for="noHostnameLimite">Tout</label>
+                <select id="NumeroExport" name="NumeroExport[]" class="form-control js-example-basic-multiple" multiple="multiple" required>
+                    {% for computer in computers %}
+                        {% if computer is not empty %}
+                            <option value="{{ computer.getid }}">{{ computer.hostname }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <span id="numeroError" class="text-danger" style="display: none;">Veuillez entrer un numéro.</span>
+            </section>
+
+            <input type="checkbox" class="form-check-input" id="noDateLimit">
+            <label class="form-check-label" for="noDateLimit">Limite de date</label>
+
+            <section class="form-group">
+                <label for="startDateExport" aria-label="Date de début">Date de début :</label>
+                <input type="date" id="startDateExport" name="startDateExport" class="form-control">
+            </section>
+
+            <section class="form-group">
+                <label for="endDateExport" aria-label="Date de fin">Date de fin :</label>
+                <input type="date" id="endDateExport" name="endDateExport" class="form-control" max="{{ 'now'|date('Y-m-d') }}">
+            </section>
+
+            <section class="form-group">
+                <label for="countriesExport" aria-label="Pays">Pays :</label>
+                (par default tout les pays)
+                <select id="countriesExport" name="countriesExport[]" class="form-control js-example-basic-multiple" multiple="multiple">
+                    {% for country in countries %}
+                        {% if country is not empty %}
+                            <option value="{{ country }}">{{ country }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </section>
+
+            <button type="submit" class="btn btn-primary">Exporter</button>
+        </form>
+    </main>
+
+    {% include 'footer.html.twig' %}
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            $(".js-example-basic-multiple").select2();
+        });
+    </script>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            $(".js-example-basic-multiple").select2();
+
+            const form = document.querySelector('form');
+            const numeroError = document.getElementById('numeroError');
+
+            form.addEventListener('submit', function(event) {
+                const numero = document.getElementById('NumeroExport').value;
+
+                if (!numero || numero === 'all') {
+                    numeroError.style.display = 'block';
+                    event.preventDefault();
+                } else {
+                    numeroError.style.display = 'none';
+                }
+            });
+
+            // Gestion de l'activation/désactivation des inputs de date
+            const noDateLimitCheckbox = document.getElementById('noDateLimit');
+            const startDateInput = document.getElementById('startDateExport');
+            const endDateInput = document.getElementById('endDateExport');
+            const startDateLabel = document.querySelector('label[for="startDateExport"]');
+            const endDateLabel = document.querySelector('label[for="endDateExport"]');
+            const noHostnameLimite = document.getElementById('noHostnameLimite');
+            const numeroSelect = document.getElementById('NumeroExport');
+
+            function updateDisabledState() {
+                const disabled = !noDateLimitCheckbox.checked;
+                startDateInput.disabled = disabled;
+                endDateInput.disabled = disabled;
+                startDateLabel.classList.toggle('label-disabled', disabled);
+                endDateLabel.classList.toggle('label-disabled', disabled);
+                numeroSelect.disabled = noHostnameLimite.checked;
+            }
+            updateDisabledState();
+
+            noDateLimitCheckbox.addEventListener('change', updateDisabledState);
+            noHostnameLimite.addEventListener('change', updateDisabledState);
+
+            const today = new Date();
+            const day = String(today.getDate()).padStart(2, '0');
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const year = today.getFullYear();
+
+            endDateInput.value = `${year}-${month}-${day}`;
+        });
+    </script>
+
+{% endblock %}

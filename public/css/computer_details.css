@@ -1,0 +1,107 @@
+/* computer_details.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.computer-details {
+    padding: 50px;
+    background-color: #fff;
+    margin: 20px auto;
+    width: 80%;
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
+    max-width: 1200px;
+}
+
+.computer-details h1, .computer-details h2 {
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.computer-details h1 {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.computer-details h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.details-table, .activity-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.details-table th, .details-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.activity-table th, .activity-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.details-table th, .activity-table th {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.details-table tr:nth-child(even), .activity-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.activity-table tr:hover {
+    background-color: #ddd;
+}
+
+.details-table a, .activity-table a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.details-table a:hover, .activity-table a:hover {
+    color: #0056b3;
+}
+
+.export-button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.export-button:hover {
+    background-color: #0056b3;
+}
+
+.computer-details form {
+    margin-bottom: 20px;
+}
+
+form input, form select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+}
+
+form input:focus, form select:focus {
+    border-color: #007bff;
+}

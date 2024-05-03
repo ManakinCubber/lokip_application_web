@@ -1,0 +1,164 @@
+{# templates/activity.html.twig #}
+
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/activity.css') }}">
+{% endblock %}
+{% block body %}
+    {% include 'header.html.twig' %}
+
+    <div id="spinner" class="loader"></div>
+    <div class="activity-page container activity-content">
+        <h1 class="my-4 text-center">Suivi des Activités</h1>
+
+        <form id="Country" class="country-form" method="get" action="{{ path('activity') }}" >
+            <div class="form-row align-items-center justify-content-between">
+                <div class="form-group col-md-4 form-left">
+                    <select id="countriesExport" name="countriesExport[]" class="form-control js-example-basic-multiple" multiple="multiple">
+                        {% for country in countries %}
+                            {% if country is not empty %}
+                                <option value="{{ country }}" {% if country in selectedCountries %}selected{% endif %}>{{ country }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+
+                {# filtre pour les Addresses ip #}
+
+                {#
+                <div class="form-group col-md-2 form-right">
+                    <label for="days" class="sr-only">Afficher les activités des derniers jours :</label>
+                    <select id="days" name="days" class="form-control form-control-sm">
+                        <option value="7" {% if selectedDays == 7 %}selected{% endif %}>Derniers 7 jours</option>
+                        <option value="30" {% if selectedDays == 30 %}selected{% endif %}>Derniers 30 jours</option>
+                        <option value="90" {% if selectedDays == 90 %}selected{% endif %}>Derniers 90 jours</option>
+                        <option value="365" {% if selectedDays == 365 %}selected{% endif %}>Dernière année</option>
+                    </select>
+                </div>
+                #}
+
+                {# filtre pour le nombre de lignes par page #}
+
+
+
+                <div class="form-group col-md-2 form-right">
+                    <button type="submit" class="btn btn-filter">Filtrer</button>
+                </div>
+            </div>
+        </form>
+        <div class="form-container">
+        <!-- Formulaire pour le sélecteur 'order' -->
+        <form id="orderForm" class="order-form" method="get" action="{{ path('activity') }}">
+            <div class="form-group col-md-2 form-right">
+                <label for="order" class="sr-only">Ordre de tri :</label>
+                <select id="order" name="order" class="form-control form-control-sm">
+                    <option value="desc" {% if order == 'desc' %}selected{% endif %}>+ au - récent</option>
+                    <option value="asc" {% if order == 'asc' %}selected{% endif %}>- au + récent</option>
+                </select>
+            </div>
+        </form>
+
+        <!-- Formulaire pour le sélecteur 'rows' -->
+        <form id="rowsForm" class="rows-form" method="get" action="{{ path('activity') }}">
+            <div class="form-group col-md-2 form-right">
+                <label for="rows" class="sr-only">Nombre de lignes par page :</label>
+                <select id="rows" name="rows" class="form-control form-control-sm">
+                    <option value="25" {% if selectedRows == 25 %}selected{% endif %}>25 lignes</option>
+                    <option value="50" {% if selectedRows == 50 %}selected{% endif %}>50 lignes</option>
+                    <option value="100" {% if selectedRows == 100 %}selected{% endif %}>100 lignes</option>
+                    <option value="200" {% if selectedRows == 200 %}selected{% endif %}>200 lignes</option>
+                </select>
+            </div>
+        </form>
+        </div>
+        <table class="activity-table">
+            <tr>
+                <th>Numéro</th>
+                <th>Tag</th>
+                <th>Addresse IP</th>
+                <th>Proxy</th>
+                <th>Localisation</th>
+                <th>Date de collecte</th>
+            </tr>
+            {% if pagination|length > 0 %}
+                {% for row in pagination %}
+                    <tr>
+                        <td><a href="{{ path('computer_details', {'hostname': row.computer.hostname}) }}">{{ row.computer.hostname|split('.')|first }}</a></td>
+                        <td>{{ row.tag | upper }}</td>
+                        <td>{{ row.ipAddress }}</td>
+                        <td class="{{ row.isProxy ? '' : 'text-gray' }}">{{ row.isProxy ? 'OUI' : 'NON' }}</td>
+                    <td>{{ row.country is not null ? row.country : 'NULL' }}</td>
+                        <td>{{row.collectionDateTime|date('H:i:s') ~ ' - ' ~ row.collectionDateTime|date('d-m-Y')  }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="6">Aucun résultat</td>
+                </tr>
+            {% endif %}
+        </table>
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
+    {% include 'footer.html.twig' %}
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
+    <script>
+        document.getElementById('order').addEventListener('change', function() {
+            document.getElementById('activityForm').submit();
+        });
+
+        document.getElementById('rows').addEventListener('change', function() {
+            document.getElementById('activityForm').submit();
+        });
+    </script>
+    <script>
+        document.querySelector('button[type="submit"]').addEventListener('click', function(e) {
+            e.preventDefault();
+
+            let selectedCountries = Array.from(document.querySelector('#countriesExport').selectedOptions).map(option => option.value);
+
+            fetch('{{ path('update_database') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    countries: selectedCountries,
+                }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        e.target.form.submit();
+                    } else {
+                        console.error('Error:', data.message);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2({
+                placeholder: "Localisation (par defaut tous)",
+                allowClear: true
+            });
+        });
+    </script>
+    <script>
+        document.getElementById('order').addEventListener('change', function() {
+            this.form.submit();
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,72 @@
+/* header.css */
+
+.header-section {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.1);
+    font-family: Arial, sans-serif;
+}
+
+.header-section .logo-nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.header-section .logo img {
+    height: 50px;
+}
+
+.header-section nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.header-section .search-form {
+    margin-right: 20px;
+    position: relative;
+}
+
+.header-section .js-example-basic-single {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+    transition: all 0.3s ease-in-out;
+}
+
+.header-section .search-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.header-section .nav-list {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+.header-section .nav-item a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.header-section .nav-item a:hover {
+    color: #007bff;
+}

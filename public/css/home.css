@@ -1,0 +1,268 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    font-size: 16px;
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.1);
+    margin: 20px auto;
+    max-width: 98%;
+    padding: 20px;
+}
+
+.alert:hover {
+    transform: scale(1.02);
+    transition: transform .2s;
+}
+
+
+.alert {
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    position: relative;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: rgba(184, 0, 0, 0.90); /* Red */
+    border-color: #f5c6cb;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert p {
+    margin-bottom: 0;
+}
+
+.row {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.col-md-6 {
+    padding: 20px;
+    box-sizing: border-box;
+    width: 45%;
+}
+
+#myChart {
+    width: 100%;
+    height: 400px;
+}
+
+h1, h2, h3 {
+    color: #333;
+    text-align: center;
+    font-size: 2em;
+}
+
+.countPc {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.alert-section {
+    position: relative;
+    height: 400px;
+    overflow: auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
+}
+
+.rank-section {
+    position: relative;
+    height: 400px;
+    overflow: auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1);
+}
+
+.alert-card {
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+
+.alert-card .card-header {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.alert-card .card-body {
+    flex: 1 1 auto;
+    padding: 1.25rem;
+}
+
+.alert-card .alertp {
+    color: white;
+    text-align: center;
+}
+
+.alert-warning {
+    color: #856404;
+    background-color: rgba(255, 152, 0, 0.9);
+    border-color: #FFA07A;
+}
+
+.alert-warning .alert-link {
+    color: white;
+}
+
+.alert-danger .alert-link {
+    color: white;
+}
+
+h4 {
+    color: rgba(44, 44, 44, 0.65);
+    text-align: center;
+    font-size: 1rem;
+}
+
+.alert .close, .alert .btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.alert .btn {
+    right: 50px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown .supp {
+    color: black;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+    text-align: center;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.legend {
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+}
+
+.color-square {
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+    margin-left: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+
+.red {
+    background-color: #dc3545;
+}
+
+.orange {
+    background-color: #fd7e14;
+}
+
+.legend-text {
+    color: #505050;
+    margin-left: 3px;
+}
+
+.legend-count {
+    font-weight: bold;
+}
+
+
+p {
+    line-height: 1.6;
+}
+
+
+
+.knp-pagination ul {
+    display: inline-block;
+    padding-left: 0;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+.knp-pagination li {
+    display: inline;
+}
+
+.knp-pagination a, .knp-pagination span {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    margin-left: -1px;
+    line-height: 1.42857143;
+    color: #337ab7;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.knp-pagination .disabled span,
+.knp-pagination .disabled a,
+.knp-pagination .disabled a:hover,
+.knp-pagination .disabled a:focus {
+    color: #777;
+    cursor: not-allowed;
+    background-color: #fff;
+    border-color: #ddd;
+}
+
+.knp-pagination .active a,
+.knp-pagination .active span,
+.knp-pagination .active a:hover,
+.knp-pagination .active a:focus {
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 90%;
+    }
+}
+
